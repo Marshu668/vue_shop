@@ -5,7 +5,7 @@
         <div class="avatar_box">
          <img src="../assets/logo.png" alt="">
         </div>
-        <!-- 登陆表单区 -->
+        <!-- 登陆表单区 ref父组件想访问子组件的内容-->
         <el-form ref="loginFormRef" :model=" loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
         <!-- 用户名 -->
           <el-form-item prop="username">
@@ -45,7 +45,7 @@ export default {
   methods: {
     //  点击重置按钮,重置表单
     resetLoginForm () {
-      // console.log(this)
+      // console.log(this) resetFields是elementUI的方法
       this.$refs.loginFormRef.resetFields()
     },
     // 表单登陆之前预验证
