@@ -25,7 +25,8 @@ import {
   Tooltip,
   Pagination,
   Dialog,
-  MessageBox
+  MessageBox,
+  Tag
 } from 'element-ui'
 
 // 通过vue.use()  全局挂载所导入的组件
@@ -51,6 +52,7 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Tag)
 // message他的名字是自定义属性,自己取
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
