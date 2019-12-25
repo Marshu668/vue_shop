@@ -43,14 +43,14 @@
      <el-dialog
   title="添加分类"
   :visible.sync="addCateDialogVisible"
-  width="50%">
+  width="50%" @close="addCateDialogClosed">
   <!-- 添加分类的表单 -->
   <el-form :model="addCateForm" :rules="addCateFormRules" ref="addCateFormRef" label-width="100px">
   <el-form-item label="分类名称" prop="name">
     <el-input v-model="addCateForm.cat_name"></el-input>
   </el-form-item>
   <el-form-item label="父级分类">
-    <!-- options用来指定数据源,级联选择器,props用来指定配置对象 -->
+    <!-- options用来指定数据源,级联选择器,props用来指定配置对象 cascader级联选择器-->
     <el-cascader
     v-model="selectedKeys"
     :options="parentCateList"
@@ -61,7 +61,7 @@
   </el-form>
   <span slot="footer" class="dialog-footer">
     <el-button @click="addCateDialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="addCateDialogVisible = false">确 定</el-button>
+    <el-button type="primary" @click="addCate">确 定</el-button>
   </span>
 </el-dialog>
 
@@ -123,9 +123,7 @@ export default {
       },
       // 添加分类表单的验证规则对象
       addCateFormRules: {
-        cat_name: [
-          { required: true, message: '请输入分类名称', trigger: 'blur' }
-        ]
+        cat_name: [{ required: true, message: '请输入分类名称', trigger: 'blur' }]
       },
       // 父级分类的列表
       parentCateList: [],
@@ -194,6 +192,41 @@ export default {
       console.log(this.selectedKeys)
       // 如果 selectedKeys 数组中的 length 大于0，证明选中的父级分类
       // 反之，就说明没有选中任何父级分类
+      if (this.selectedKeys.length > 0) {
+        //  父级分类的id,level的值等于数组的长度
+        this.addCateForm.cate_pid = this.selectedKeys[this.selectedKeys.length - 1]
+        // 为当前分类的等级赋值
+        this.addCateForm.cate_level = this.selectedKeys.length
+      } else {
+        this.addCateForm.cate_pid = 0
+        this.addCateForm.cate_level = 0
+      }
+    },
+    // 点击按钮添加新的分类
+    addCate () {
+      console.log(this.addCateForm)
+      this.$refs.addCateFormRef.validate(async valid => {
+        if (!valid) return
+        const { data: res } = await this.$http.post(
+          'categories',
+          this.addCateForm
+        )
+
+        if (res.meta.status !== 201) {
+          return this.$message.error('添加分类失败！')
+        }
+
+        this.$message.success('添加分类成功！')
+        this.getCateList()
+        this.addCateDialogVisible = false
+      })
+    },
+    // 监听对话框的关闭事件,重置表单数据
+    addCateDialogClosed () {
+      this.$refs.addCateFormRef.resetFields()
+      this.selectedKeys = []
+      this.addCateForm.cat_level = 0
+      this.addCateForm.cat_pid = 0
     }
   }
 }
