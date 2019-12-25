@@ -7,6 +7,7 @@ import './plugins/element.js'
 import './assets/fonts/iconfont.css'
 // 导入全局样式表
 import './assets/css/global.css'
+import TreeTable from 'vue-table-with-tree-grid'
 // 导入面包屑
 import Mbx from './components/Mbx.vue'
 
@@ -20,7 +21,7 @@ axios.interceptors.request.use(config => {
 Vue.prototype.$http = axios
 Vue.component('Mbx', Mbx)
 Vue.config.productionTip = false
-
+Vue.component('tree-table', TreeTable)
 new Vue({
   router,
   render: h => h(App)
