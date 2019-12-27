@@ -22,6 +22,23 @@ Vue.prototype.$http = axios
 Vue.component('Mbx', Mbx)
 Vue.config.productionTip = false
 Vue.component('tree-table', TreeTable)
+// 时间过滤器
+Vue.filter('dateFormat', function (originVal) {
+  const dt = new Date(originVal)
+  // 年份
+  const y = dt.getFullYear()
+  // 月份
+  const m = (dt.getMonth() + 1 + '').padStart(2, '0')
+  // 日期
+  const d = (dt.getDate() + '').padStart(2, '0')
+  // 小时
+  const hh = (dt.getHours() + '').padStart(2, '0')
+  // 分钟
+  const mm = (dt.getMinutes() + '').padStart(2, '0')
+  //  秒数
+  const ss = (dt.getSeconds() + '').padStart(2, '0')
+  return `${y}-${m}-${d}  ${hh}:${mm}:${ss}`
+})
 new Vue({
   router,
   render: h => h(App)
