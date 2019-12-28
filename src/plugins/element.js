@@ -33,7 +33,11 @@ import {
   Cascader,
   Alert,
   TabPane,
-  Tabs
+  Tabs,
+  Steps,
+  Step,
+  Checkbox,
+  CheckboxGroup
 } from 'element-ui'
 
 // 通过vue.use()  全局挂载所导入的组件
@@ -67,6 +71,11 @@ Vue.use(Cascader)
 Vue.use(Alert)
 Vue.use(TabPane)
 Vue.use(Tabs)
+Vue.use(Steps)
+Vue.use(Step)
+Vue.use(Checkbox)
+Vue.use(CheckboxGroup)
+
 // message他的名字是自定义属性,自己取
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
