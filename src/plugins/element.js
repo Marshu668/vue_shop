@@ -37,7 +37,8 @@ import {
   Steps,
   Step,
   Checkbox,
-  CheckboxGroup
+  CheckboxGroup,
+  Upload
 } from 'element-ui'
 
 // 通过vue.use()  全局挂载所导入的组件
@@ -75,7 +76,7 @@ Vue.use(Steps)
 Vue.use(Step)
 Vue.use(Checkbox)
 Vue.use(CheckboxGroup)
-
+Vue.use(Upload)
 // message他的名字是自定义属性,自己取
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

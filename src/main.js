@@ -10,6 +10,12 @@ import './assets/css/global.css'
 import TreeTable from 'vue-table-with-tree-grid'
 // 导入面包屑
 import Mbx from './components/Mbx.vue'
+// 导入富文本编辑器
+import VueQuillEditor from 'vue-quill-editor'
+// require styles 导入富文本编辑器对应的样式
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 
 import axios from 'axios'
 // 配置请求的根路径
@@ -21,6 +27,8 @@ axios.interceptors.request.use(config => {
 Vue.prototype.$http = axios
 Vue.component('Mbx', Mbx)
 Vue.config.productionTip = false
+// 将富文本编辑器，注册为全局可用的组件
+Vue.use(VueQuillEditor)
 Vue.component('tree-table', TreeTable)
 // 时间过滤器
 Vue.filter('dateFormat', function (originVal) {
